@@ -23,7 +23,7 @@ The control messages above are ordinary JSON-RPC 2.0 notifications and requests;
 - **Transport Layer:** WebSocket ([RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455)), established via an HTTP/1.1 `Upgrade` handshake
 - **Application Layer:** JSON-RPC 2.0 ([specification](https://www.jsonrpc.org/specification)), reusing the request, response, and error objects of the A2A [JSON-RPC binding](https://a2a-protocol.org/v1.0.0/specification/#9-json-rpc-protocol-binding)
 - **Definition:** Uses the same method inventory and message types as the JSON-RPC binding, derived from `specification/a2a.proto`
-- **Serialization:** JSON following ProtoJSON conventions ([ADR-001](https://github.com/a2aproject/A2A/blob/main/adrs/adr-001-protojson-serialization.md)), UTF-8 encoded
+- **Serialization:** JSON following ProtoJSON conventions ([Section 5.5](https://a2a-protocol.org/v1.0.0/specification/#55-json-field-naming-convention)), UTF-8 encoded
 - **Sub-protocol:** `a2a.v1`, negotiated via the `Sec-WebSocket-Protocol` header during the handshake. The `v1` identifies the major version of this binding, not the A2A protocol version, and changes together with the Transport Identifier
 - **Message Type:** Text messages only, each carrying exactly one JSON-RPC 2.0 object; binary messages are reserved for future use. A message **MAY** be fragmented into multiple frames as permitted by [RFC 6455 Section 5.4](https://datatracker.ietf.org/doc/html/rfc6455#section-5.4)
 - **Service Name:** Not applicable. Operations are addressed by the JSON-RPC `method` member using the method names of `lf.a2a.v1.A2AService` from `specification/a2a.proto` (e.g., `SendMessage`), with no service prefix
@@ -314,7 +314,7 @@ This binding does not reserve any service parameter keys beyond the `a2a-` prefi
 
 ## 5. Method Inventory
 
-The binding supports the full A2A method inventory. Method names use PascalCase, matching the JSON-RPC and gRPC bindings. The table below reflects the `A2AService` methods in the current A2A proto (`specification/a2a.proto`); implementations targeting another version of A2A **MUST** use the method names, request types, and response types from the proto for that version.
+The binding supports the full A2A method inventory. Method names use PascalCase, matching the JSON-RPC and gRPC bindings. The table below reflects the `A2AService` methods as defined in the current A2A proto (`specification/a2a.proto`). Implementations targeting an older version of A2A **MUST** use the method names, request types, and response types from the proto for that version.
 
 | Method Name                        | Type          | Request Params Type                       | Response Result Type                      | A2A Operation                   |
 | ---------------------------------- | ------------- | ----------------------------------------- | ----------------------------------------- | ------------------------------- |
